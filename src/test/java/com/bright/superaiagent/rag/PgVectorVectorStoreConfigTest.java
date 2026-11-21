@@ -28,5 +28,6 @@ class PgVectorVectorStoreConfigTest {
         pgVectorVectorStore.add(documents);
         // Retrieve documents similar to a query
         List<Document> results = pgVectorVectorStore.similaritySearch(SearchRequest.builder().query("Spring").topK(5).build());
+        System.out.println(results);
     }
 }

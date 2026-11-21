@@ -104,6 +104,9 @@ public class LoveApp {
     @Resource
     private Advisor loveAppRagCloudAdvisor;
 
+    @Resource
+    private VectorStore pgVectorVectorStore;
+
     //AI 恋爱知识库问答功能
     @Resource
     private VectorStore loveAppVectorStore;
@@ -116,9 +119,12 @@ public class LoveApp {
                                 ChatMemory.CONVERSATION_ID,
                                 chatId)
                 )
+                //基于内存的RAG
 //                .advisors(QuestionAnswerAdvisor.builder(loveAppVectorStore).build())
                 //基于在线的知识库
-                .advisors(loveAppRagCloudAdvisor)
+//                .advisors(loveAppRagCloudAdvisor)
+                //基于PG向量数据库的RAG
+                .advisors(QuestionAnswerAdvisor.builder(pgVectorVectorStore).build())
                 .call()
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();
